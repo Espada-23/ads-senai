@@ -32,7 +32,7 @@ As principais linguagens e ferramentas que pretendo utilizar:
 ## 🚀 Como rodar os projetos
 1. Clone o repositório:
    ```bash
-   git clone [https://github.com/Espada-23/ads-senai.git](https://github.com/Espada-23/ads-senai.git)
+   git clone https://github.com/Espada-23/ads-senai.git
 2. Entre na pasta do exercício desejado.
 
 3. Siga as instruções específicas de README dentro de cada subpasta.
