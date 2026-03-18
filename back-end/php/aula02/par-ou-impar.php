@@ -13,6 +13,7 @@ foreach($numeros as $numero) {
     }
 }
 
-echo "Dos números listados, $pares são pares e $impares são impares.";
+echo "Dos números listados: " . implode(", ", $numeros) . "<br><br>";
+echo "$pares são pares e $impares são impares.";
 
 ?>
