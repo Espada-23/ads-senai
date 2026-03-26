@@ -1,0 +1,174 @@
+/* Configurações Globais */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+body {
+    background-color: #f0f4f8; 
+    color: #333;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+.container-principal {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+    width: 100%;
+}
+
+/* Cabeçalho */
+header {
+    background: #0a2e5c;
+    color: white;
+    padding: 20px 0;
+}
+
+.cabecalho-simples {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logo {
+    font-size: 2.5rem;
+    font-weight: 800;
+}
+
+.logo span {
+    color: #ff6b00;
+}
+
+.btn-voltar {
+    color: white;
+    text-decoration: none;
+    font-weight: bold;
+    border: 1px solid white;
+    padding: 8px 15px;
+    border-radius: 5px;
+    transition: 0.3s;
+}
+
+.btn-voltar:hover {
+    background: white;
+    color: #0a2e5c;
+}
+
+/* Layout Centralizado para a área de Login/Cadastro */
+.layout-centralizado {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-grow: 1; 
+    padding: 40px 20px;
+}
+
+/* A Caixa Branca (Cartão) */
+.caixa-autenticacao {
+    background: white;
+    width: 100%;
+    max-width: 450px;
+    border-radius: 12px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    padding: 40px 30px;
+}
+
+/* Formulários */
+.formulario h2 {
+    color: #0a2e5c;
+    margin-bottom: 5px;
+    text-align: center;
+}
+
+.formulario p {
+    color: #777;
+    margin-bottom: 25px;
+    font-size: 0.95rem;
+    text-align: center;
+}
+
+/* Estilo dos Inputs */
+.grupo-input {
+    margin-bottom: 20px;
+}
+
+.grupo-input label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: bold;
+    color: #555;
+    font-size: 0.9rem;
+}
+
+.grupo-input input {
+    width: 100%;
+    padding: 12px 15px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 1rem;
+    outline: none;
+    transition: 0.3s;
+}
+
+.grupo-input input:focus {
+    border-color: #ff6b00;
+    box-shadow: 0 0 0 3px rgba(255, 107, 0, 0.1);
+}
+
+.esqueci-senha {
+    display: block;
+    text-align: right;
+    color: #0a2e5c;
+    text-decoration: none;
+    font-size: 0.9rem;
+    margin-bottom: 25px;
+}
+
+.esqueci-senha:hover {
+    text-decoration: underline;
+}
+
+/* Botão Principal de Ação */
+.btn-principal {
+    width: 100%;
+    background: #0a2e5c;
+    color: white;
+    border: none;
+    padding: 15px;
+    border-radius: 5px;
+    font-size: 1.1rem;
+    font-weight: bold;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.btn-principal:hover {
+    background: #ff6b00;
+    transform: translateY(-2px);
+}
+
+/* Link para trocar de página (Login <-> Cadastro) */
+.link-alternativo {
+    margin-top: 25px;
+    text-align: center;
+    border-top: 1px solid #eee;
+    padding-top: 20px;
+}
+
+.link-alternativo p {
+    margin-bottom: 0;
+}
+
+.link-alternativo a {
+    color: #ff6b00;
+    font-weight: bold;
+    text-decoration: none;
+}
+
+.link-alternativo a:hover {
+    text-decoration: underline;
+}

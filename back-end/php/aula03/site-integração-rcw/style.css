@@ -1,0 +1,260 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+body {
+    background-color: #f9f9f9;
+    color: #333;
+}
+
+.container-principal {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+header {
+    background: #0a2e5c;
+    color: white;
+    padding: 20px 0;
+    text-align: center;
+}
+
+.logo {
+    font-size: 2.5rem;
+    font-weight: 800;
+    letter-spacing: -1px;
+}
+
+.logo span {
+    color: #ff6b00;
+}
+
+.hero {
+    background: #1a1a1a;
+    color: white;
+    padding: 80px 20px;
+    text-align: center;
+}
+
+.hero h1 {
+    font-size: 3rem;
+    margin-bottom: 10px;
+}
+
+.title {
+    text-align: center;
+    margin: 50px 0;
+    font-size: 2rem;
+    color: #0a2e5c;
+}
+
+.grade-produtos {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 30px;
+    margin-bottom: 60px;
+}
+
+.cartao {
+    background: white;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s;
+    position: relative;
+}
+
+.cartao:hover {
+    transform: translateY(-5px);
+}
+
+.cartao img {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+}
+
+.conteudo-cartao {
+    padding: 20px;
+    text-align: center;
+}
+
+.price {
+    display: block;
+    font-size: 1.1rem;
+    color: #777;
+    margin-top: 15px;
+}
+
+.discount {
+    display: block;
+    font-size: 1.4rem;
+    font-weight: bold;
+    color: #48af03;
+    margin: 10px 0;
+}
+
+.botao-cartao {
+    background: #0a2e5c;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: 0.3s ease;
+}
+
+.botao-cartao a {
+    color: white;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.botao-cartao:hover {
+    transform: scale(1.05);
+    opacity: 0.9;
+}
+
+.frete-gratis {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    margin-top: 0;
+    z-index: 10;
+    background-color: rgb(255, 245, 245);
+    color: #F00633;
+    padding: 10px;
+    border-radius: 5px;
+    font-weight: bold;
+    font-size: 0.8em;
+    text-align: center;
+}
+
+.produtos {
+    display: flex;
+    justify-content: space-around;
+    margin-bottom: 40px;
+    margin-top: -20px;
+}
+
+.produtos a button {
+    background: #ff6b00;
+    color: white;
+    font-size: 1rem;
+    font-weight: bold;
+    padding: 20px 20px;
+    border: none;
+    border-radius: 40px;
+    transition: 0.3s ease;
+}
+
+.produtos a button:hover {
+    background: #e65a00;
+    transform: scale(1.05);
+    opacity: 0.9;
+}
+
+.secao-contato {
+    background: #0a2e5c;
+    color: white;
+    padding: 60px 0;
+}
+
+.secao-contato .title {
+    color: white;
+    margin-bottom: 30px;
+}
+
+.formulario-contato {
+    max-width: 500px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.formulario-contato input,
+.formulario-contato textarea {
+    padding: 12px;
+    border-radius: 5px;
+    border: none;
+}
+
+.formulario-contato button {
+    background: #ff6b00;
+    color: white;
+    padding: 15px;
+    border: none;
+    border-radius: 5px;
+    font-weight: bold;
+    cursor: pointer;
+    font-size: 1rem;
+    transition: 0.3s ease;
+}
+
+.formulario-contato button:hover {
+    background: #e65a00;
+}
+
+footer {
+    background-color: #1a1a1a;
+    color: #bbb;
+    padding: 40px 0 20px 0;
+    margin-top: auto;
+}
+
+.conteudo-rodape-simples {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    text-align: center;
+}
+
+.logo-rodape {
+    font-size: 2.2rem;
+    font-weight: 800;
+    color: white;
+}
+
+.logo-rodape span {
+    color: #ff6b00;
+}
+
+.copyright-simples {
+    margin-top: 20px;
+    padding-top: 20px;
+    border-top: 1px solid #333;
+    width: 100%;
+    font-size: 0.9rem;
+}
+
+.conteudo-rodape-simples {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    text-align: center;
+}
+
+.logo-rodape {
+    font-size: 2.2rem;
+    font-weight: 800;
+    color: white;
+}
+
+.logo-rodape span {
+    color: #ff6b00;
+}
+
+.copyright-simples {
+    margin-top: 20px;
+    padding-top: 20px;
+    border-top: 1px solid #333;
+    width: 100%;
+    font-size: 0.9rem;
+}
