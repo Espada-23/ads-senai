@@ -7,4 +7,5 @@
     echo "Nome: " . $nome . "<br>";
     echo "Endereço: " . $endereco . "<br>";
     echo "Email: " . $email . "<br>";
+    echo "País: " . $pais . "<br>";
 ?>

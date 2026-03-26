@@ -10,10 +10,20 @@
 
 <body>
     <h1>Formulário de Contato</h1>
-    <form action="receba.php" method="post">
-        <input type="text" name="nome" placeholder="Nome">
-        <input type="text"  name="endereco" placeholder="Endereço">
-        <input type="email" name="email" placeholder="Email">
+        <form action="receba.php" method="post">
+            <input type="text" name="nome" placeholder="Nome">
+            <input type="text"  name="endereco" placeholder="Endereço">
+            <input type="email" name="email" placeholder="Email">
+            <select name="pais">
+            <option value="">Selecione um País</option>
+            <option value="Brasil">Brasil</option>
+            <option value="França">França</option>
+            <option value="Croácia">Croácia</option>
+            <option value="Portugal">Portugal</option>
+            <option value="Argentina">Argentina</option>
+            <option value="Uruguai">Uruguai</option>
+        </select>
+        <button type="submit">Enviar</button>
     </form>
 </body>
 </html>
