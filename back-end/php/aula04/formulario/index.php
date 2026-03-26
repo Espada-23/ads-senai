@@ -23,7 +23,12 @@
             <option value="Argentina">Argentina</option>
             <option value="Uruguai">Uruguai</option>
         </select>
+        <div>
+            <input type="radio" name="turno" value="Manhã">Manhã
+            <input type="radio" name="turno" value="Tarde">Tarde
+            <input type="radio" name="turno" value="Noite">Noite
+        </div>
         <button type="submit">Enviar</button>
     </form>
 </body>
-</html>
+</html> 
