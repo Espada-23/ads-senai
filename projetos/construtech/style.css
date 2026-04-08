@@ -199,7 +199,7 @@ tr:nth-child(even) {
 
 /* Rodapé Financeiro */
 
-.rodape-financeiro {
+footer{
     background-color: #1e3a8a;
     color: white;
     padding: 1.5rem;
