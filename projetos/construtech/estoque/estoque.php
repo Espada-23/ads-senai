@@ -11,7 +11,11 @@
 <body>
 
     <header>
+        <img src="https://i.pinimg.com/originals/40/a1/01/40a1011e96c0ad6b87b941cb0ee7661d.png" alt="ConstruTech">    
         <h1>ConstruTech – Gestão de Estoque</h1>
+        <div>
+            <a href="../index.php"><button class="btn-logout">Sair</button></a>
+        </div>
     </header>
 
     <div class="container">
