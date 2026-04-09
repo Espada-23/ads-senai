@@ -12,6 +12,6 @@ elseif ($nome != "Vicente" || $senha != "1234") {
     exit;
 } 
 else {
-    header("Location: /Git-Senai/ads-senai/projetos/construtech/estoque/estoque.html");
+    header("Location: /Git-Senai/ads-senai/projetos/construtech/estoque/estoque.php");
     exit;
 }
