@@ -1,17 +1,17 @@
 <?php
 
-$erro = '';
-
 $nome = $_POST["nome"];
 $senha = $_POST["senha"];
 
-if ($nome == ""|| $senha == "") {
-    $erro = "Preencha os campos para acessar o sistema";
+if ($nome == "" || $senha == "") {
+    header("Location: index.php?erro=1");
+    exit;
 } 
 elseif ($nome != "Vicente" || $senha != "1234") {
-    $erro = "Usuário ou senha incorretos. Tente novamente.";
+    header("Location: index.php?erro=2");
+    exit;
 } 
 else {
-    header("Location: estoque.html");
-    exit();
+    header("Location: /Git-Senai/ads-senai/projetos/construtech/estoque/estoque.html");
+    exit;
 }
