@@ -35,6 +35,7 @@
                 <div class="form-group">
                     <label>Categoria</label>
                     <select name="categoria">
+                        <option value="">Selecione</option>
                         <option value="bruto">Bruto</option>
                         <option value="ferramentas">Ferramentas</option>
                         <option value="acabamento">Acabamento</option>
