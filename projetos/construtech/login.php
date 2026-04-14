@@ -1,7 +1,7 @@
 <?php
 
-$nome = $_POST["nome"];
-$senha = $_POST["senha"];
+$nome = trim($_POST["nome"]);
+$senha = trim($_POST["senha"]);
 
 if ($nome == "" || $senha == "") {
     header("Location: index.php?erro=1");
