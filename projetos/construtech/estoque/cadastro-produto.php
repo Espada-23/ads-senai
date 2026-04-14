@@ -10,7 +10,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     $preco = str_replace(',', '.', $preco);
 
-    if($nome == '' || $quantidade == '' || $preco == '') {
+    if($nome == '' || $categoria == '' || $quantidade == '' || $preco == '') {
         echo "<script>
                 alert('Preencha todos os campos!');
                 window.history.back();
@@ -22,8 +22,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 window.history.back();
             </script>";
         exit;
+    }elseif ($quantidade < 0 || $preco < 0) {
+        echo "<script>
+                alert('Quantidade e preço devem ser valores positivos!');
+                window.history.back();
+            </script>";
+        exit;
     }
-    
+
         $novoProduto = [
             'nome' => $nome,
             'categoria' => $categoria,
