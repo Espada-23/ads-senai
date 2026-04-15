@@ -2,11 +2,14 @@
 include_once "init.php";
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-
+    
     $nome = trim($_POST['nome'] ?? '');
     $categoria = trim($_POST['categoria'] ?? '');
     $quantidade = trim($_POST['quantidade'] ?? '');
     $preco = trim($_POST['preco'] ?? '');
+    $id = count($_SESSION['produtos']) > 0 
+    ? max(array_column($_SESSION['produtos'], 'id')) + 1 
+    : 1;
 
     $preco = str_replace(',', '.', $preco);
 
@@ -31,6 +34,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 
         $novoProduto = [
+            'id' => $id,
             'nome' => $nome,
             'categoria' => $categoria,
             'quantidade' => $quantidade,
