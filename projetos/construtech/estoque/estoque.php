@@ -1,6 +1,7 @@
 <?php
 include_once "init.php";
 $categoriaFiltro = $_GET['categoria'] ?? 'todos';
+$busca = $_GET['busca'] ?? '';
 ?>
 
 <!DOCTYPE html>
@@ -73,6 +74,12 @@ $categoriaFiltro = $_GET['categoria'] ?? 'todos';
                 <a href="estoque.php?categoria=Acabamento">
                     <button class="filter-btn <?= $categoriaFiltro == 'Acabamento' ? 'active' : '' ?>">Acabamento</button>
                 </a>
+
+                <form method="GET" action="estoque.php">
+                    <input type="text" name="busca" placeholder="Buscar produto...">
+                    <input type="hidden" name="categoria" value="<?= $categoriaFiltro ?>">
+                    <button type="submit" class="btn btn-add">Buscar</button>
+                </form>
             </div>
 
             <table>
@@ -100,6 +107,9 @@ $categoriaFiltro = $_GET['categoria'] ?? 'todos';
                     foreach ($_SESSION['produtos'] as $produto) {
 
                         if ($categoriaFiltro != 'todos' && $produto['categoria'] != $categoriaFiltro) {
+                            continue;
+                        }
+                        if ($busca != '' && stripos($produto['nome'], $busca) === false) {
                             continue;
                         }
                         echo "<tr>";
