@@ -1,6 +1,7 @@
 <?php
- include_once "init.php";
- ?>
+include_once "init.php";
+$categoriaFiltro = $_GET['categoria'] ?? 'todos';
+?>
 
 <!DOCTYPE html>
 <html lang="pt-br">
@@ -16,7 +17,7 @@
 <body>
 
     <header>
-        <img src="https://i.pinimg.com/originals/40/a1/01/40a1011e96c0ad6b87b941cb0ee7661d.png" alt="ConstruTech">    
+        <img src="https://i.pinimg.com/originals/40/a1/01/40a1011e96c0ad6b87b941cb0ee7661d.png" alt="ConstruTech">
         <h1>ConstruTech – Gestão de Estoque</h1>
         <div>
             <a href="../index.php"><button class="btn-logout">Sair</button></a>
@@ -57,10 +58,21 @@
             <h2>Inventário de Produtos</h2>
 
             <div class="filters">
-                <button class="filter-btn active">Todos</button>
-                <button class="filter-btn">Bruto</button>
-                <button class="filter-btn">Ferramentas</button>
-                <button class="filter-btn">Acabamento</button>
+                <a href="estoque.php?categoria=todos">
+                    <button class="filter-btn <?= $categoriaFiltro == 'todos' ? 'active' : '' ?>">Todos</button>
+                </a>
+
+                <a href="estoque.php?categoria=Bruto">
+                    <button class="filter-btn <?= $categoriaFiltro == 'Bruto' ? 'active' : '' ?>">Bruto</button>
+                </a>
+
+                <a href="estoque.php?categoria=Ferramentas">
+                    <button class="filter-btn <?= $categoriaFiltro == 'Ferramentas' ? 'active' : '' ?>">Ferramentas</button>
+                </a>
+
+                <a href="estoque.php?categoria=Acabamento">
+                    <button class="filter-btn <?= $categoriaFiltro == 'Acabamento' ? 'active' : '' ?>">Acabamento</button>
+                </a>
             </div>
 
             <table>
@@ -74,7 +86,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                   <!--  <tr>
+                    <!--  <tr>
                         <td>Cimento Cauê 50kg</td>
                         <td><span class="category-tag">Bruto</span></td>
                         <td>45</td>
@@ -84,19 +96,26 @@
                             <button class="btn btn-delete">Remover</button>
                         </td>
                     </tr> -->
-                    <?php 
-                        foreach ($_SESSION['produtos'] as $produto) {   
-                            echo "<tr>";
-                            echo "<td>{$produto['nome']}</td>";
-                            echo "<td><span class='category-tag'>{$produto['categoria']}</span></td>";
-                            echo "<td>{$produto['quantidade']}</td>";
-                            echo "<td>R$ " . number_format($produto['preco'], 2, ',', '.') . "</td>";
-                            echo "<td>
+                    <?php
+                    foreach ($_SESSION['produtos'] as $produto) {
+
+                        if ($categoriaFiltro != 'todos' && $produto['categoria'] != $categoriaFiltro) {
+                            continue;
+                        }
+                        echo "<tr>";
+                        echo "<td>{$produto['nome']}</td>";
+                        echo "<td><span class='category-tag'>{$produto['categoria']}</span></td>";
+                        echo "<td>{$produto['quantidade']}</td>";
+                        echo "<td>R$ " . number_format($produto['preco'], 2, ',', '.') . "</td>";
+                        echo "<td>
                                     <button class='btn btn-edit'>Editar</button>
-                                    <button class='btn btn-delete'>Remover</button>
+                                    <a href='remover-produto.php?id={$produto['id']}' 
+                                        onclick='return confirm(\"Tem certeza que deseja remover este produto?\")'>
+                                        <button class='btn btn-delete'>Remover</button>
+                                    </a>
                                   </td>";
-                            echo "</tr>";
-                        }                
+                        echo "</tr>";
+                    }
                     ?>
                 </tbody>
             </table>
