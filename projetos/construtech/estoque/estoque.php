@@ -58,22 +58,22 @@ $busca = $_GET['busca'] ?? '';
         <section class="card">
             <h2>Inventário de Produtos</h2>
 
-            <div class="filters">
-                <a href="estoque.php?categoria=todos">
-                    <button class="filter-btn <?= $categoriaFiltro == 'todos' ? 'active' : '' ?>">Todos</button>
-                </a>
+                <div class="filters">
+                    <a href="estoque.php?categoria=todos">
+                        <button class="filter-btn <?= $categoriaFiltro == 'todos' ? 'active' : '' ?>">Todos</button>
+                    </a>
 
-                <a href="estoque.php?categoria=Bruto">
-                    <button class="filter-btn <?= $categoriaFiltro == 'Bruto' ? 'active' : '' ?>">Bruto</button>
-                </a>
+                    <a href="estoque.php?categoria=bruto">
+                        <button class="filter-btn <?= $categoriaFiltro == 'bruto' ? 'active' : '' ?>">Bruto</button>
+                    </a>
 
-                <a href="estoque.php?categoria=Ferramentas">
-                    <button class="filter-btn <?= $categoriaFiltro == 'Ferramentas' ? 'active' : '' ?>">Ferramentas</button>
-                </a>
+                    <a href="estoque.php?categoria=ferramentas">
+                        <button class="filter-btn <?= $categoriaFiltro == 'ferramentas' ? 'active' : '' ?>">Ferramentas</button>
+                    </a>
 
-                <a href="estoque.php?categoria=Acabamento">
-                    <button class="filter-btn <?= $categoriaFiltro == 'Acabamento' ? 'active' : '' ?>">Acabamento</button>
-                </a>
+                    <a href="estoque.php?categoria=acabamento">
+                        <button class="filter-btn <?= $categoriaFiltro == 'acabamento' ? 'active' : '' ?>">Acabamento</button>
+                    </a>
 
                 <form method="GET" action="estoque.php">
                     <input type="text" name="busca" placeholder="Buscar produto...">
