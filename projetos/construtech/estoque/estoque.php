@@ -58,22 +58,22 @@ $busca = $_GET['busca'] ?? '';
         <section class="card">
             <h2>Inventário de Produtos</h2>
 
-                <div class="filters">
-                    <a href="estoque.php?categoria=todos">
-                        <button class="filter-btn <?= $categoriaFiltro == 'todos' ? 'active' : '' ?>">Todos</button>
-                    </a>
+            <div class="filters">
+                <a href="estoque.php?categoria=todos">
+                    <button class="filter-btn <?= $categoriaFiltro == 'todos' ? 'active' : '' ?>">Todos</button>
+                </a>
 
-                    <a href="estoque.php?categoria=bruto">
-                        <button class="filter-btn <?= $categoriaFiltro == 'bruto' ? 'active' : '' ?>">Bruto</button>
-                    </a>
+                <a href="estoque.php?categoria=bruto">
+                    <button class="filter-btn <?= $categoriaFiltro == 'bruto' ? 'active' : '' ?>">Bruto</button>
+                </a>
 
-                    <a href="estoque.php?categoria=ferramentas">
-                        <button class="filter-btn <?= $categoriaFiltro == 'ferramentas' ? 'active' : '' ?>">Ferramentas</button>
-                    </a>
+                <a href="estoque.php?categoria=ferramentas">
+                    <button class="filter-btn <?= $categoriaFiltro == 'ferramentas' ? 'active' : '' ?>">Ferramentas</button>
+                </a>
 
-                    <a href="estoque.php?categoria=acabamento">
-                        <button class="filter-btn <?= $categoriaFiltro == 'acabamento' ? 'active' : '' ?>">Acabamento</button>
-                    </a>
+                <a href="estoque.php?categoria=acabamento">
+                    <button class="filter-btn <?= $categoriaFiltro == 'acabamento' ? 'active' : '' ?>">Acabamento</button>
+                </a>
 
                 <form method="GET" action="estoque.php">
                     <input type="text" name="busca" placeholder="Buscar produto...">
@@ -135,7 +135,16 @@ $busca = $_GET['busca'] ?? '';
     <footer>
         <div class="price-container">
             <h3>Resumo Financeiro</h3>
-            <p>Valor Total em Estoque: <strong>R$ 00,00</strong></p>
+            <p>Valor Total em Estoque:
+                <strong>
+                    <?php $valorTotal = 0;
+                    foreach ($_SESSION['produtos'] as $produto) {
+                        $valorTotal += $produto['quantidade'] * $produto['preco'];
+                    }
+                    echo 'R$ ' . number_format($valorTotal, 2, ',', '.');
+                    ?>
+                </strong>
+            </p>
         </div>
     </footer>
 
