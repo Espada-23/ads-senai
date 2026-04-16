@@ -217,6 +217,14 @@ tr:nth-child(even) {
     border: 1px solid #fecaca;
 }
 
+.qty-warning {
+    color: #b91c1c;
+    padding: 2px 8px;
+    background: #fee2e2;
+    border-radius: 4px;
+    border: 1px solid #fecaca;
+}
+
 .category-tag {
     background: #e2e8f0;
     padding: 3px 8px;
