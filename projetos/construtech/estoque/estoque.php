@@ -32,7 +32,7 @@ $busca = $_GET['busca'] ?? '';
             <form class="grid-form" method="POST" action="cadastro-produto.php">
                 <div class="form-group">
                     <label>Nome do Produto</label>
-                    <input type="text" name="nome" placeholder="Ex: Cimento CP II 50kg">
+                    <input type="text" name="nome" placeholder="Ex: Pedra Saco De 20Kg" maxlength="50">
                 </div>
                 <div class="form-group">
                     <label>Categoria</label>
@@ -41,15 +41,17 @@ $busca = $_GET['busca'] ?? '';
                         <option value="bruto">Bruto</option>
                         <option value="ferramentas">Ferramentas</option>
                         <option value="acabamento">Acabamento</option>
+                        <option value="hidraulica">Hidráulica</option>
+                        <option value="eletrica">Elétrica</option>
                     </select>
                 </div>
                 <div class="form-group">
                     <label>Quantidade</label>
-                    <input type="text" name="quantidade" placeholder="0">
+                    <input type="text" name="quantidade" placeholder="0" maxlength="5">
                 </div>
                 <div class="form-group">
                     <label>Preço (R$)</label>
-                    <input type="text" name="preco" placeholder="0,00">
+                    <input type="text" name="preco" placeholder="0,00" maxlength="8">
                 </div>
                 <button type="submit" class="btn btn-add">Adicionar Produto</button>
             </form>
@@ -75,6 +77,15 @@ $busca = $_GET['busca'] ?? '';
                     <button class="filter-btn <?= $categoriaFiltro == 'acabamento' ? 'active' : '' ?>">Acabamento</button>
                 </a>
 
+                <a href="estoque.php?categoria=hidraulica">
+                    <button class="filter-btn <?= $categoriaFiltro == 'hidraulica' ? 'active' : '' ?>">Hidráulica</button>
+                </a>
+
+                <a href="estoque.php?categoria=eletrica">
+                    <button class="filter-btn <?= $categoriaFiltro == 'eletrica' ? 'active' : '' ?>">Elétrica</button>
+                </a>
+
+
                 <form method="GET" action="estoque.php">
                     <input type="text" name="busca" placeholder="Buscar produto...">
                     <input type="hidden" name="categoria" value="<?= $categoriaFiltro ?>">
@@ -88,7 +99,8 @@ $busca = $_GET['busca'] ?? '';
                         <th>Nome</th>
                         <th>Categoria</th>
                         <th>Quantidade</th>
-                        <th>Preço</th>
+                        <th>Preço Un.</th>
+                        <th>Valor Total</th>
                         <th>Ações</th>
                     </tr>
                 </thead>
@@ -111,14 +123,33 @@ $busca = $_GET['busca'] ?? '';
                         }
                         if ($busca != '' && stripos($produto['nome'], $busca) === false) {
                             continue;
+                        }   
+                        
+                        $classe = '';
+
+                        if ($produto['quantidade'] <= 5) {
+                            $classe = 'low-stock';
+                        } elseif ($produto['quantidade'] <= 15) {
+                            $classe = 'medium-stock';
                         }
-                        echo "<tr>";
+
+                        echo "<tr class='$classe'>";;
                         echo "<td>{$produto['nome']}</td>";
                         echo "<td><span class='category-tag'>{$produto['categoria']}</span></td>";
-                        echo "<td>{$produto['quantidade']}</td>";
+                        echo "<td><span class='qty-badge'>{$produto['quantidade']}</td>";
                         echo "<td>R$ " . number_format($produto['preco'], 2, ',', '.') . "</td>";
+                        echo "<td>R$ " . number_format($produto['quantidade'] * $produto['preco'], 2, ',', '.') . "</td>";
                         echo "<td>
-                                    <button class='btn btn-edit'>Editar</button>
+                                    <button class='btn btn-edit'
+                                        onclick=\"abrirModal(
+                                            '{$produto['id']}',
+                                            '{$produto['nome']}',
+                                            '{$produto['categoria']}',
+                                            '{$produto['quantidade']}',
+                                            '" . number_format($produto['preco'], 2, ',', '.') . "'
+                                        )\">
+                                        Editar
+                                    </button>
                                     <a href='remover-produto.php?id={$produto['id']}' 
                                         onclick='return confirm(\"Tem certeza que deseja remover este produto?\")'>
                                         <button class='btn btn-delete'>Remover</button>
@@ -130,6 +161,45 @@ $busca = $_GET['busca'] ?? '';
                 </tbody>
             </table>
         </section>
+    </div>
+
+    <div id="modal" class="modal">
+
+        <div class="modal-card">
+
+            <h3>Editar Produto</h3>
+
+            <form method="POST" action="atualizar-produto.php">
+
+                <input type="hidden" name="id" id="edit-id">
+
+                <label>Nome:</label>
+                <input type="text" name="nome" id="edit-nome" placeholder="Ex: Parafuso" maxlength="50"><br>
+
+                <label>Categoria</label>
+                <select name="categoria" id="edit-categoria">
+                    <option value="bruto">Bruto</option>
+                    <option value="ferramentas">Ferramentas</option>
+                    <option value="acabamento">Acabamento</option>
+                    <option value="hidraulica">Hidráulica</option>
+                    <option value="eletrica">Elétrica</option>
+                </select>
+
+                <label>Quantidade:</label>
+                <input type="number" name="quantidade" id="edit-quantidade" placeholder="0" maxlength="5"><br>
+
+                <label>Preço:</label>
+                <input type="text" name="preco" id="edit-preco" placeholder="0,00" maxlength="8"><br>
+
+                <div class="modal-actions">
+                    <button type="submit" class="btn btn-add">Salvar</button>
+                    <button type="button" class="btn btn-cancel" onclick="fecharModal()">Cancelar</button>
+                </div>
+
+            </form>
+
+        </div>
+
     </div>
 
     <footer>
@@ -148,6 +218,22 @@ $busca = $_GET['busca'] ?? '';
         </div>
     </footer>
 
+    <script>
+        function abrirModal(id, nome, categoria, quantidade, preco) {
+
+            document.getElementById('modal').style.display = 'flex';
+            document.getElementById('edit-id').value = id;
+            document.getElementById('edit-nome').value = nome;
+            document.getElementById('edit-categoria').value = categoria;
+            document.getElementById('edit-quantidade').value = quantidade;
+            document.getElementById('edit-preco').value = preco;
+        }
+
+        function fecharModal() {
+            document.getElementById('modal').style.display = 'none';
+        }
+    </script>
 </body>
 
 </html>
+
