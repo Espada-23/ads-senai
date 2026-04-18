@@ -144,10 +144,55 @@ td {
     padding: 12px;
     border-bottom: 1px solid #eee;
     font-size: 0.95rem;
+    vertical-align: middle; 
 }
 
 tr:nth-child(even) {
     background-color: #ffffff;
+}
+
+/* Quantidade */
+
+.qtd-inline {
+    display: flex;
+    align-items: center;
+    justify-content: left;
+    gap: 8px;
+}
+
+.qtd-inline button {
+    width: 32px;
+    height: 32px;
+    border: none;
+    border-radius: 6px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+.qtd-inline .button-menos {
+    background-color: #ef4444;
+    color: #ffffff;
+}
+
+.qtd-inline .button-mais {
+    background-color: #16a34a;
+    color: #ffffff;
+}
+
+.qtd-inline .button-menos:hover {
+    background-color: #dc2626;
+}
+
+.qtd-inline .button-mais:hover {
+    background-color:#08c750 ;
+}
+
+.qtd-inline span {
+    min-width: 30px;
+    text-align: center;
+    display: inline-block;
+    font-weight: bold;
 }
 
 /* Modal */
@@ -280,10 +325,7 @@ tr:nth-child(even) {
 .medium-stock .qty-badge {
     color: #b45309;
     font-weight: bold;
-    padding: 2px 8px;
-    background: #fef3c7;
-    border-radius: 4px;
-    border: 1px solid #fcd34d;
+
 }
 
 
@@ -295,10 +337,8 @@ tr:nth-child(even) {
 .low-stock .qty-badge {
     color: #b91c1c;
     font-weight: bold;
-    padding: 2px 8px;
-    background: #fee2e2;
-    border-radius: 4px;
-    border: 1px solid #fecaca;
+
+
 }
 
 .qty-warning {
