@@ -123,8 +123,8 @@ $busca = $_GET['busca'] ?? '';
                         }
                         if ($busca != '' && stripos($produto['nome'], $busca) === false) {
                             continue;
-                        }   
-                        
+                        }
+
                         $classe = '';
 
                         if ($produto['quantidade'] <= 5) {
@@ -136,9 +136,21 @@ $busca = $_GET['busca'] ?? '';
                         echo "<tr class='$classe'>";;
                         echo "<td>{$produto['nome']}</td>";
                         echo "<td><span class='category-tag'>{$produto['categoria']}</span></td>";
-                        echo "<td><span class='qty-badge'>{$produto['quantidade']}</td>";
-                        echo "<td>R$ " . number_format($produto['preco'], 2, ',', '.') . "</td>";
-                        echo "<td>R$ " . number_format($produto['quantidade'] * $produto['preco'], 2, ',', '.') . "</td>";
+                        echo "<td>
+                                    <div class='qtd-inline'>
+                                        <button onclick=\"alterarQtdTabela({$produto['id']}, -1, {$produto['preco']})\">-</button>
+                                        
+                                        <span id='qtd-{$produto['id']}' class='qty-badge'>{$produto['quantidade']}</span>
+                                        
+                                        <button onclick=\"alterarQtdTabela({$produto['id']}, 1, {$produto['preco']})\">+</button>
+                                    </div>
+                                </td>";
+                        echo "<td id='preco-{$produto['id']}'>
+                                    R$ " . number_format($produto['preco'], 2, ',', '.') . "
+                                </td>";
+                        echo "<td id='total-{$produto['id']}'>
+                                    R$ " . number_format($produto['quantidade'] * $produto['preco'], 2, ',', '.') . "
+                                </td>";
                         echo "<td>
                                     <button class='btn btn-edit'
                                         onclick=\"abrirModal(
@@ -186,7 +198,7 @@ $busca = $_GET['busca'] ?? '';
                 </select>
 
                 <label>Quantidade:</label>
-                <input type="number" name="quantidade" id="edit-quantidade" placeholder="0" maxlength="5"><br>
+                <input type="text" name="quantidade" id="edit-quantidade" placeholder="0" maxlength="5"><br>
 
                 <label>Preço:</label>
                 <input type="text" name="preco" id="edit-preco" placeholder="0,00" maxlength="8"><br>
@@ -206,8 +218,9 @@ $busca = $_GET['busca'] ?? '';
         <div class="price-container">
             <h3>Resumo Financeiro</h3>
             <p>Valor Total em Estoque:
-                <strong>
-                    <?php $valorTotal = 0;
+                <strong id="resumo-total">
+                    <?php
+                    $valorTotal = 0;
                     foreach ($_SESSION['produtos'] as $produto) {
                         $valorTotal += $produto['quantidade'] * $produto['preco'];
                     }
@@ -232,8 +245,57 @@ $busca = $_GET['busca'] ?? '';
         function fecharModal() {
             document.getElementById('modal').style.display = 'none';
         }
+
+        function alterarQtdTabela(id, valor, preco) {
+            let span = document.getElementById('qtd-' + id);
+            let atual = parseInt(span.innerText);
+
+            let novo = atual + valor;
+            if (novo < 0) novo = 0;
+
+            span.innerText = novo;
+
+            let total = novo * preco;
+
+            let totalCell = document.getElementById('total-' + id);
+            totalCell.innerText = 'R$ ' + total.toFixed(2).replace('.', ',');
+
+            let row = span.closest('tr');
+            row.classList.remove('low-stock', 'medium-stock');
+
+            if (novo <= 5) {
+                row.classList.add('low-stock');
+            } else if (novo <= 15) {
+                row.classList.add('medium-stock');
+            }
+
+            let resumo = document.getElementById('resumo-total');
+
+            let valorAtual = resumo.innerText
+                .replace('R$', '')
+                .replace(/\./g, '')
+                .replace(',', '.');
+
+            valorAtual = parseFloat(valorAtual);
+
+            let diferenca = valor * preco;
+
+            let novoResumo = valorAtual + diferenca;
+
+            resumo.innerText = novoResumo.toLocaleString('pt-BR', {
+                style: 'currency',
+                currency: 'BRL'
+            });
+
+            fetch('atualizar-qtd.php', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded'
+                },
+                body: `id=${id}&quantidade=${novo}`
+            });
+        }
     </script>
 </body>
 
 </html>
-
