@@ -32,7 +32,7 @@ $busca = $_GET['busca'] ?? '';
             <form class="grid-form" method="POST" action="cadastro-produto.php">
                 <div class="form-group">
                     <label>Nome do Produto</label>
-                    <input type="text" name="nome" placeholder="Ex: Pedra Saco De 20Kg" maxlength="50">
+                    <input type="text" name="nome" placeholder="Ex: Pedra Saco De 20Kg" maxlength="100">
                 </div>
                 <div class="form-group">
                     <label>Categoria</label>
@@ -46,12 +46,16 @@ $busca = $_GET['busca'] ?? '';
                     </select>
                 </div>
                 <div class="form-group">
+                    <label>Imagem (URL)</label>
+                    <input type="text" name="imagem" placeholder="Link da Imagem">
+                </div>
+                <div class="form-group">
                     <label>Quantidade</label>
                     <input type="text" name="quantidade" placeholder="0" maxlength="5">
                 </div>
                 <div class="form-group">
                     <label>Preço (R$)</label>
-                    <input type="text" name="preco" placeholder="0,00" maxlength="8">
+                    <input type="text" name="preco" placeholder="0,00" maxlength="10">
                 </div>
                 <button type="submit" class="btn btn-add">Adicionar Produto</button>
             </form>
@@ -105,16 +109,6 @@ $busca = $_GET['busca'] ?? '';
                     </tr>
                 </thead>
                 <tbody>
-                    <!--  <tr>
-                        <td>Cimento Cauê 50kg</td>
-                        <td><span class="category-tag">Bruto</span></td>
-                        <td>45</td>
-                        <td>R$ 38,90</td>
-                        <td>
-                            <button class="btn btn-edit">Editar</button>
-                            <button class="btn btn-delete">Remover</button>
-                        </td>
-                    </tr> -->
                     <?php
                     foreach ($_SESSION['produtos'] as $produto) {
 
@@ -123,6 +117,9 @@ $busca = $_GET['busca'] ?? '';
                         }
                         if ($busca != '' && stripos($produto['nome'], $busca) === false) {
                             continue;
+                        }
+                        if ($produto['imagem'] == '') {
+                            $produto['imagem'] = 'https://upload.wikimedia.org/wikipedia/commons/1/14/No_Image_Available.jpg';
                         }
 
                         $classe = '';
@@ -133,8 +130,12 @@ $busca = $_GET['busca'] ?? '';
                             $classe = 'medium-stock';
                         }
 
-                        echo "<tr class='$classe'>";;
-                        echo "<td>{$produto['nome']}</td>";
+                        echo "<tr class='$classe'>";
+                        echo "<td class='nome-produto'>
+                                    <span class='texto-nome'>{$produto['nome']}</span>
+                                    <span class='tooltip-nome'>{$produto['nome']}</span>
+                                    <img src='{$produto['imagem']}' class='preview-img'>
+                                </td>";
                         echo "<td><span class='category-tag'>{$produto['categoria']}</span></td>";
                         echo "<td>
                                     <div class='qtd-inline'>
@@ -157,6 +158,7 @@ $busca = $_GET['busca'] ?? '';
                                             '{$produto['id']}',
                                             '{$produto['nome']}',
                                             '{$produto['categoria']}',
+                                            '{$produto['imagem']}',
                                             '{$produto['quantidade']}',
                                             '" . number_format($produto['preco'], 2, ',', '.') . "'
                                         )\">
@@ -186,7 +188,7 @@ $busca = $_GET['busca'] ?? '';
                 <input type="hidden" name="id" id="edit-id">
 
                 <label>Nome:</label>
-                <input type="text" name="nome" id="edit-nome" placeholder="Ex: Parafuso" maxlength="50"><br>
+                <input type="text" name="nome" id="edit-nome" placeholder="Ex: Parafuso" maxlength="100"><br>
 
                 <label>Categoria</label>
                 <select name="categoria" id="edit-categoria">
@@ -197,11 +199,14 @@ $busca = $_GET['busca'] ?? '';
                     <option value="eletrica">Elétrica</option>
                 </select>
 
+                <label>Imagem (URL)</label>
+                <input type="text" name="imagem" id="edit-imagem" placeholder="Link da Imagem"><br>
+
                 <label>Quantidade:</label>
                 <input type="text" name="quantidade" id="edit-quantidade" placeholder="0" maxlength="5"><br>
 
                 <label>Preço:</label>
-                <input type="text" name="preco" id="edit-preco" placeholder="0,00" maxlength="8"><br>
+                <input type="text" name="preco" id="edit-preco" placeholder="0,00" maxlength="10"><br>
 
                 <div class="modal-actions">
                     <button type="submit" class="btn btn-add">Salvar</button>
@@ -232,14 +237,19 @@ $busca = $_GET['busca'] ?? '';
     </footer>
 
     <script>
-        function abrirModal(id, nome, categoria, quantidade, preco) {
+        function abrirModal(id, nome, categoria, imagem, quantidade, preco) {
 
             document.getElementById('modal').style.display = 'flex';
             document.getElementById('edit-id').value = id;
             document.getElementById('edit-nome').value = nome;
             document.getElementById('edit-categoria').value = categoria;
+            document.getElementById('edit-imagem').value = imagem;
             document.getElementById('edit-quantidade').value = quantidade;
             document.getElementById('edit-preco').value = preco;
+
+            if (imagem == '') {
+                imagem = 'https://upload.wikimedia.org/wikipedia/commons/1/14/No_Image_Available.jpg';
+            }
         }
 
         function fecharModal() {
@@ -257,16 +267,16 @@ $busca = $_GET['busca'] ?? '';
 
             let total = novo * preco;
 
-            let totalCell = document.getElementById('total-' + id);
-            totalCell.innerText = 'R$ ' + total.toFixed(2).replace('.', ',');
+            let totalnovo = document.getElementById('total-' + id);
+            totalnovo.innerText = 'R$ ' + total.toFixed(2).replace('.', ',');
 
-            let row = span.closest('tr');
-            row.classList.remove('low-stock', 'medium-stock');
+            let quantidade = span.closest('tr');
+            quantidade.classList.remove('low-stock', 'medium-stock');
 
             if (novo <= 5) {
-                row.classList.add('low-stock');
+                quantidade.classList.add('low-stock');
             } else if (novo <= 15) {
-                row.classList.add('medium-stock');
+                quantidade.classList.add('medium-stock');
             }
 
             let resumo = document.getElementById('resumo-total');
@@ -277,6 +287,8 @@ $busca = $_GET['busca'] ?? '';
                 .replace(',', '.');
 
             valorAtual = parseFloat(valorAtual);
+
+            preco = parseFloat(preco);
 
             let diferenca = valor * preco;
 
@@ -295,6 +307,14 @@ $busca = $_GET['busca'] ?? '';
                 body: `id=${id}&quantidade=${novo}`
             });
         }
+
+        document.querySelectorAll('.texto-nome').forEach(el => {
+            const container = el.parentElement;
+
+            if (el.scrollWidth > el.clientWidth) {
+                container.classList.add('tem-overflow');
+            }
+        });
     </script>
 </body>
 
