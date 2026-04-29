@@ -8,10 +8,12 @@ foreach ($_SESSION['produtos'] as &$produto) {
     if ($produto['id'] == $id) {
 
         $nome = $_POST['nome'] ?? '';
+        $imagem = $_POST['imagem'] ?? '';
         $categoria = $_POST['categoria'] ?? '';
         $quantidade = $_POST['quantidade'] ?? '';
         $preco = $_POST['preco'] ?? '';
 
+        $preco = str_replace('.', '', $preco);
         $preco = str_replace(',', '.', $preco);
 
         if ($nome == '' || $categoria == '' || $quantidade == '' || $preco == '') {
@@ -35,6 +37,7 @@ foreach ($_SESSION['produtos'] as &$produto) {
         }
 
         $produto['nome'] = $nome;
+        $produto['imagem'] = $imagem;
         $produto['categoria'] = $categoria;
         $produto['quantidade'] = $quantidade;
         $produto['preco'] = $preco;
